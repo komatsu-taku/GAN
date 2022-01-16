@@ -36,7 +36,7 @@ class GAN:
         self.generator = self.build_generator()
         # Generatorは単体で学習しないのでsompileの必要なし
 
-        self.combined = self.build_combined1
+        self.combined = self.build_combined1()
         # self.combined = self.build_combined2
         self.combined.compile(
             loss = "binary_crossentropy",
