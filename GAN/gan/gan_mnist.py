@@ -62,7 +62,7 @@ class GAN:
         model.add(BatchNormalization(momentum=0.8))
         model.add(Dense(1024))
         model.add(LeakyReLU(alpha=0.2))
-        model.add(BaseException(momentum=0.8))
+        model.add(BatchNormalization(momentum=0.8))
         model.add(Dense(np.prob(self.img_shape), activation="tanh"))
         model.add(Reshape(self.img_shape))
 
