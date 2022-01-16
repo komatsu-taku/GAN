@@ -184,6 +184,6 @@ class GAN:
         plt.close()
 
 if __name__ == '__main__':
-    gan = GAN()
+    gan = GAN(28, 28, 1, 100)
     gan.train(epochs=30000, batch_size=32, save_interval=1)
             
