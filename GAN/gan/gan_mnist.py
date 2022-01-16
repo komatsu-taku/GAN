@@ -157,7 +157,7 @@ class GAN:
             g_loss = self.combined.train_on_batch(noise, valid_y)
 
             # 進捗の表示
-            print ("%d [D loss: %f, acc.: %.2f%%] [G loss: %f]" % (epoch, d_loss[0], 100*d_loss[1], g_loss))
+            print ("%d [D loss: %f, acc.: %.2f%%] [G loss: %f]" % (epoch, d_loss[0], 100*d_loss[1], g_loss[0]))
 
         # 指定した間隔で生成画像を保存
         if epoch % save_interval == 0:
