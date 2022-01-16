@@ -140,8 +140,8 @@ class GAN:
 
             # discriminatornの学習
             # ここでは本物のデータを偽物のデータは別々に学習させる
-            d_loss_real = self.discriminator.train_on_batch(imgs, np.ones(half_batch, 1))
-            d_loss_fake = self.discriminator.train_on_batch(gen_imgs, np.zeros(half_batch, 1))
+            d_loss_real = self.discriminator.train_on_batch(imgs, np.ones((half_batch, 1)))
+            d_loss_fake = self.discriminator.train_on_batch(gen_imgs, np.zeros((half_batch, 1)))
             # 各損失関数の平均をとる
             d_loss = 0.5 * np.add(d_loss_real, d_loss_fake)
             
