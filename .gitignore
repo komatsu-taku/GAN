@@ -1,5 +1,6 @@
 # ignore image folder
-./GAN/gan/images/
-./GAN/dcgan/images/
-./GAN/cgan/images/
-./GAN/wgan-gp/images/
+GAN/gan/images/
+GAN/dcgan/images/
+GAN/cgan/images/
+GAN/wgan-gp/images/
+*.png
