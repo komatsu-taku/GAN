@@ -167,10 +167,10 @@ class DCGAN(tf.keras.models.Model):
             # 進捗の表示
             print ("%d [D loss: %f, acc.: %.2f%%] [G loss: %f]" % (epoch, d_loss[0], 100*d_loss[1], g_loss[0]))
 
-        # 指定した間隔で生成画像を保存
-        if epoch % save_interval == 0:
-            self.save_imgs(epoch)
-    
+            # 指定した間隔で生成画像を保存
+            if epoch % save_interval == 0:
+                self.save_imgs(epoch)
+        
     # def train(self, epochs, batch_size=128, save_interval=50):
     #     """
     #     学習用の関数
