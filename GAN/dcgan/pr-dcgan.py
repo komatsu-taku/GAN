@@ -18,6 +18,7 @@ class DCGAN(tf.keras.models.Model):
         """
         コンストラクタ : 基本構造の作成
         """
+        super().__init__()
         self.path = "./images"
 
         self.img_rows = img_rows
@@ -36,7 +37,7 @@ class DCGAN(tf.keras.models.Model):
         self.discriminator.compile(
             loss = "binary_crossentropy",
             optimizer = optimizer,
-            metrics = ["accracy"]
+            metrics = ["accuracy"]
         )
 
         # generatorの設定
@@ -48,7 +49,7 @@ class DCGAN(tf.keras.models.Model):
         self.combined.compile(
             loss = "binary_crossentropy",
             optimizer = optimizer,
-            metrics = ["accracy"]
+            metrics = ["accuracy"]
         )
 
     def build_generator(self):
@@ -67,13 +68,13 @@ class DCGAN(tf.keras.models.Model):
         model.add(Dense(128*7*7))
         model.add(BatchNormalization())
         model.add(Activation("relu"))
-        model.add(Reshape(7, 7, 128), input_shpae=(128*7*7, ))
+        model.add(Reshape((7, 7, 128), input_shape=(128*7*7, )))
         model.add(UpSampling2D((2,2)))
         model.add(Conv2D(64, (5, 5), padding="same"))
         model.add(BatchNormalization())
         model.add(Activation("relu"))
         model.add(UpSampling2D((2,2)))
-        model.add(Conv2D(64, (5, 5), padding="same"))
+        model.add(Conv2D(1, (5, 5), padding="same"))
         model.add(Activation("tanh"))
         
         model.summary()
@@ -133,25 +134,25 @@ class DCGAN(tf.keras.models.Model):
 
         half_batch = int(batch_size / 2)
 
-        for epoch in epochs:
+        for epoch in range(epochs):
             """
             Discriminatornの学習
             """
 
             # バッチサイズの半数をGeneratorから生成
-            noise = np.random.randn(0, 1, (half_batch, self.z_dim))
+            noise = np.random.normal(0, 1, (half_batch, self.z_dim))
             gen_imgs = self.generator.predict(noise)
 
             # 残りの半分を教師データからピックアップ
-            idx = np.random.randn(0, X_train.shape[0], half_batch)
+            idx = np.random.randint(0, X_train.shape[0], half_batch)
             imgs = X_train[idx]
 
             # discriminatorの学習
             # 別々に学習
-            d_loss_real = self.discriminator.train_on_batch(imgs, np.ones(half_batch, 1))
-            d_loss_fake = self.discriminator.train_on_batch(gen_imgs, np.zeros(half_batch, 1))
+            d_loss_real = self.discriminator.train_on_batch(imgs, np.ones((half_batch, 1)))
+            d_loss_fake = self.discriminator.train_on_batch(gen_imgs, np.zeros((half_batch, 1)))
             # 各損失関数の平均をとる
-            d_loss = 0.5 * (d_loss_real  + d_loss_fake)
+            d_loss = 0.5 * np.add(d_loss_real, d_loss_fake)
 
             """
             Generatorの学習
