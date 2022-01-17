@@ -159,10 +159,10 @@ class GAN:
             # 進捗の表示
             print ("%d [D loss: %f, acc.: %.2f%%] [G loss: %f]" % (epoch, d_loss[0], 100*d_loss[1], g_loss[0]))
 
-        # 指定した間隔で生成画像を保存
-        if epoch % save_interval == 0:
-            self.save_imgs(epoch)
-    
+            # 指定した間隔で生成画像を保存
+            if epoch % save_interval == 0:
+                self.save_imgs(epoch)
+        
     def save_imgs(self, epoch):
         # row,col
         r, c = 5, 5
@@ -185,5 +185,5 @@ class GAN:
 
 if __name__ == '__main__':
     gan = GAN(28, 28, 1, 100)
-    gan.train(epochs=30000, batch_size=32, save_interval=1)
+    gan.train(epochs=30000, batch_size=32, save_interval=1000)
             
